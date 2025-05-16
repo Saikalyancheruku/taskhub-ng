@@ -5,6 +5,7 @@ import { ThemeService } from '../core/services/theme.service';
 import { AuthService } from '../core/services/auth.service';
 import { NotificationService } from '../core/services/notification.service';
 import { User } from '../core/models/user.model';
+import { UserService } from '../core/services/user.service';
 
 @Component({
   selector: 'app-settings',
@@ -26,13 +27,15 @@ export class SettingsComponent implements OnInit {
   passwordForm = {
     currentPassword: '',
     newPassword: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    userId:this.user?.id || ''
   };
   
   constructor(
     private themeService: ThemeService,
     private authService: AuthService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private userService: UserService
   ) {}
   
   ngOnInit(): void {
@@ -60,17 +63,7 @@ export class SettingsComponent implements OnInit {
     this.notificationService.success('Profile updated successfully');
   }
   
-  changePassword(): void {
-    if (!this.isPasswordFormValid()) return;
-    
-    // In a real app, this would make an API call
-    this.notificationService.success('Password changed successfully');
-    this.passwordForm = {
-      currentPassword: '',
-      newPassword: '',
-      confirmPassword: ''
-    };
-  }
+
   
   isProfileChanged(): boolean {
     return this.user?.username !== this.profileForm.name;
@@ -90,4 +83,27 @@ export class SettingsComponent implements OnInit {
     if (!role) return '';
     return role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
   }
+
+  changePassword(): void {
+  if (!this.isPasswordFormValid()) {
+    this.notificationService.error('Please fill all fields correctly.');
+    return;
+  }
+
+  this.userService.changePassword(this.passwordForm).subscribe({
+    next: () => {
+      this.notificationService.success('Password changed successfully');
+      this.passwordForm = {
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: '',
+        userId:this.user?.id || ''
+      };
+    },
+    error: (err) => {
+      this.notificationService.error(err.error?.message || 'Error changing password');
+    }
+  });
+}
+
 }

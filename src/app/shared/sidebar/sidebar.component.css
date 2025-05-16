@@ -34,10 +34,11 @@
     }
     
     .sidebar-close {
-
-      font-size: 24px;
-      cursor: pointer;
-    }
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--text-primary, #333);
+  display: block; /* Always visible */
+}
     
     .sidebar-content {
       flex: 1;
@@ -122,24 +123,5 @@
         transform: translateX(0);
       }
       
-      .sidebar-close {
-     font-size: 24px;
-  cursor: pointer;
-  color: var(--text-primary, #333);
-  display: none; /* default hidden */
       }
-      @media (max-width: 768px) {
-  .sidebar-close {
-    display: block;
-  }
-
-  .mobile-close-button {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    height: 60px;
-    padding: 0 16px;
-    border-bottom: 1px solid var(--border-color);
-  }
-}
-    }
+  

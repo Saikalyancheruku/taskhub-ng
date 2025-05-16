@@ -45,8 +45,9 @@ export class LoginComponent {
     });
   }
   
-  fillCredentials(email: string): void {
-    this.credentials.email = email;
-    this.credentials.password = 'password';
-  }
+ fillCredentials(email: string, password: string): void {
+  this.credentials.email = email;
+  this.credentials.password = password;
+}
+
 }

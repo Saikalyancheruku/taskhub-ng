@@ -1,6 +1,7 @@
 export class ApiEndpoints {
   static readonly AUTH_LOGIN = '/auth/login';
   static readonly AUTH_REGISTER = '/auth/register';
+  static readonly CHANGE_PASSWORD = 'users/change-password';
  static readonly CONFIG = '/assets/config.json';
   static readonly GET_TASKS = 'tasks';
   static readonly USERS = 'users';

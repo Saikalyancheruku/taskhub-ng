@@ -28,4 +28,14 @@ export class UserService {
   deleteUser(id: number): Observable<any> {
     return this.apiService.delete(`${this.baseUrl}/${id}`);
   }
+
+
+  changePassword(payload: { currentPassword: string; newPassword: string; confirmPassword: string;userId: string }): Observable<{ message: string }> {
+  return this.apiService.post<{ message: string }>(this.endPoints.CHANGE_PASSWORD,
+    {
+      currentPassword: payload.currentPassword,
+      newPassword: payload.newPassword
+    }
+  );
+}
 }

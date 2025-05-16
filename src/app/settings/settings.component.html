@@ -67,6 +67,46 @@
           </div>
         </div>
         
-        
+          <div class="settings-section">
+  <h2>Change Password</h2>
+  <div class="form-group">
+    <label for="currentPassword" class="form-label">Current Password</label>
+    <input
+      type="password"
+      id="currentPassword"
+      [(ngModel)]="passwordForm.currentPassword"
+      class="form-input"
+      placeholder="Enter current password"
+    >
+  </div>
+
+  <div class="form-group">
+    <label for="newPassword" class="form-label">New Password</label>
+    <input
+      type="text"
+      id="newPassword"
+      [(ngModel)]="passwordForm.newPassword"
+      class="form-input"
+      placeholder="Enter new password"
+    >
+  </div>
+
+  <div class="form-group">
+    <label for="confirmPassword" class="form-label">Confirm New Password</label>
+    <input
+      type="password"
+      id="confirmPassword"
+      [(ngModel)]="passwordForm.confirmPassword"
+      class="form-input"
+      placeholder="Confirm new password"
+    >
+  </div>
+
+  <div class="form-actions">
+    <button (click)="changePassword()" class="btn btn-primary">Change Password</button>
+  </div>
+</div>
+
       </div>
     </div>
+  
