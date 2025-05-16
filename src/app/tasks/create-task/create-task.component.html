@@ -116,7 +116,7 @@
               #assigneeModel="ngModel"
             >
               <option value="">Select team member</option>
-              <option *ngFor="let member of teamMembers" [value]="member.userId">
+              <option *ngFor="let member of teamMembers" [value]="member.id">
                 {{ member.username }}
               </option>
             </select>
