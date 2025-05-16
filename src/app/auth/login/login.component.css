@@ -64,3 +64,14 @@
     .account-item:hover {
       background-color: var(--input-bg);
     }
+
+
+    .auth-logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.auth-logo img {
+  max-width: 120px;
+  height: auto;
+}
