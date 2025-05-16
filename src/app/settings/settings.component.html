@@ -1,0 +1,72 @@
+ <div class="settings-page">
+      <header class="page-header">
+        <h1>Settings</h1>
+      </header>
+      
+      <div class="settings-content">
+        <div class="settings-section">
+          <h2>Theme Preferences</h2>
+          <div class="theme-toggle">
+            <label class="toggle-label">
+              Dark Mode
+              <div class="toggle-switch">
+                <input
+                  type="checkbox"
+                  [checked]="isDarkTheme"
+                  (change)="toggleTheme()"
+                >
+                <span class="slider"></span>
+              </div>
+            </label>
+          </div>
+        </div>
+        
+        <div class="settings-section">
+          <h2>Profile Information</h2>
+          <div class="profile-form">
+            <div class="avatar-section">
+              <img [src]="'https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001877.png'" alt="User avatar" class="avatar">
+            
+            </div>
+            
+            <div class="form-group">
+              <label for="name" class="form-label">Full Name</label>
+              <input
+                type="text"
+                id="name"
+                [(ngModel)]="profileForm.name"
+                class="form-input"
+                placeholder="Your name"
+                disabled
+              >
+            </div>
+            
+            <div class="form-group">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                id="email"
+                [(ngModel)]="profileForm.email"
+                class="form-input"
+                placeholder="Your email"
+                disabled
+              >
+            </div>
+            
+            <div class="form-group">
+              <label for="role" class="form-label">Role</label>
+              <input
+                type="text"
+                id="role"
+                [value]="formatRole(user?.role)"
+                class="form-input"
+                disabled
+              >
+            </div>
+      
+          </div>
+        </div>
+        
+        
+      </div>
+    </div>

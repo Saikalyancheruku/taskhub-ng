@@ -1,0 +1,66 @@
+.auth-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+      background-color: var(--bg-color);
+    }
+    
+    .auth-card {
+      width: 100%;
+      max-width: 420px;
+      padding: 40px;
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .auth-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    
+    .auth-subtitle {
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      text-align: center;
+    }
+    
+    .auth-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+    }
+    
+    .error-message {
+      color: var(--error);
+      font-size: 0.875rem;
+      margin-top: 4px;
+    }
+    
+    .demo-accounts {
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .demo-accounts h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+    
+    .account-item {
+      padding: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-bottom: 4px;
+      transition: background-color 0.2s ease;
+    }
+    
+    .account-item:hover {
+      background-color: var(--input-bg);
+    }

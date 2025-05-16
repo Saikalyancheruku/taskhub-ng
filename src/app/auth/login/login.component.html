@@ -1,0 +1,64 @@
+  <div class="auth-container">
+      <div class="auth-card">
+        <h1 class="auth-title">Sign In</h1>
+        <p class="auth-subtitle">Enter your credentials to access your account</p>
+        
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="form-input" 
+              placeholder="your@email.com" 
+              [(ngModel)]="credentials.email" 
+              required
+              email
+              #email="ngModel">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
+              <div *ngIf="email.errors?.['required']">Email is required</div>
+              <div *ngIf="email.errors?.['email']">Please enter a valid email</div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              class="form-input" 
+              placeholder="********" 
+              [(ngModel)]="credentials.password" 
+              required
+              minlength="6"
+              #password="ngModel">
+            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
+              <div *ngIf="password.errors?.['required']">Password is required</div>
+              <div *ngIf="password.errors?.['minlength']">Password must be at least 6 characters</div>
+            </div>
+          </div>
+          
+          <div class="auth-footer">
+            <p>Don't have an account? <a routerLink="/register">Sign up</a></p>
+            <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid || isLoading">
+              {{ isLoading ? 'Signing in...' : 'Sign In' }}
+            </button>
+          </div>
+        </form>
+        
+        <div class="demo-accounts">
+          <h3>Demo accounts:</h3>
+          <div class="account-item" (click)="fillCredentials('admin@example.com')">
+            <strong>Admin:</strong> admin.com / password
+          </div>
+          <div class="account-item" (click)="fillCredentials('manager@example.com')">
+            <strong>Manager:</strong> manager.com / password
+          </div>
+          <div class="account-item" (click)="fillCredentials('user@example.com')">
+            <strong>User:</strong> user.com / password
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,148 @@
+  <div class="task-detail" *ngIf="task">
+      <header class="page-header">
+        <div class="header-content">
+          <h1>{{ task.title }}</h1>
+          <div class="header-actions">
+            <button 
+              *ngIf="canEditTask" 
+              class="btn btn-secondary"
+              (click)="toggleEdit()"
+            >
+              {{ isEditing ? 'Cancel' : 'Edit' }}
+            </button>
+          </div>
+        </div>
+      </header>
+      
+      <div class="task-content">
+        <div class="task-info">
+          <div class="info-section">
+            <div class="status-priority">
+              <div class="status-select" *ngIf="isEditing">
+                <label for="status">Status</label>
+                <select 
+                  id="status" 
+                  [(ngModel)]="editedTask.status"
+                  class="form-input"
+                >
+                  <option *ngFor="let status of statuses" [value]="status.id">
+                    {{ status.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="status-badge" *ngIf="!isEditing">
+                <span class="badge" [ngClass]="'badge-' + task.status">
+                  {{ task.statusName }}
+                </span>
+              </div>
+              
+              <div class="priority-select" *ngIf="isEditing">
+                <label for="priority">Priority</label>
+                <select 
+                  id="priority" 
+                  [(ngModel)]="editedTask.priority"
+                  class="form-input"
+                >
+                  <option *ngFor="let priority of priorities" [value]="priority.id">
+                    {{ priority.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="priority-badge" *ngIf="!isEditing">
+                <span class="badge" [ngClass]="'priority-' + task.priority">
+                  {{ task.priorityName }}
+                </span>
+              </div>
+            </div>
+            
+            <div class="description-section">
+              <label>Description</label>
+              <textarea
+                *ngIf="isEditing"
+                [(ngModel)]="editedTask.description"
+                class="form-input"
+                rows="4"
+              ></textarea>
+              <p *ngIf="!isEditing">{{ task.description }}</p>
+            </div>
+            
+            <div class="meta-section">
+              <div class="meta-item">
+                <span class="meta-label">Assignee:</span>
+                <span class="meta-value">{{ task.assigneeName }}</span>
+              </div>
+              
+              <div class="meta-item">
+                <span class="meta-label">Due Date:</span>
+                <input
+                  *ngIf="isEditing"
+                  type="date"
+                  [(ngModel)]="editedTask.dueDate"
+                  class="form-input"
+                >
+                <span 
+                  *ngIf="!isEditing"
+                  class="meta-value"
+                  [class.overdue]="isOverdue(task)"
+                >
+                  {{ task.dueDate | date:'mediumDate' }}
+                </span>
+              </div>
+              
+              <div class="meta-item">
+                <span class="meta-label">Created By:</span>
+                <span class="meta-value">{{ task.createdBy }}</span>
+              </div>
+              
+              <div class="meta-item">
+                <span class="meta-label">Created At:</span>
+                <span class="meta-value">{{ task.createdAt | date:'medium' }}</span>
+              </div>
+            </div>
+            
+            <div class="actions" *ngIf="isEditing">
+              <button 
+                class="btn btn-primary"
+                (click)="saveChanges()"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="comments-section">
+          <h2>Comments</h2>
+          
+          <div class="comment-form">
+            <textarea
+              [(ngModel)]="newComment"
+              placeholder="Add a comment..."
+              class="form-input"
+              rows="3"
+            ></textarea>
+            <button 
+              class="btn btn-primary"
+              (click)="addComment()"
+              [disabled]="!newComment.trim()"
+            >
+              Add Comment
+            </button>
+          </div>
+          
+          <div class="comments-list">
+            <div *ngFor="let comment of task.comments" class="comment">
+              <div class="comment-header">
+                <span class="comment-author">{{ comment.user.username }}</span>
+                <span class="comment-date">{{ comment.createdAt | date:'medium' }}</span>
+              </div>
+              <p class="comment-content">{{ comment.comment }}</p>
+            </div>
+            
+            <div *ngIf="!task.comments?.length" class="empty-comments">
+              <p>No comments yet. Be the first to comment!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

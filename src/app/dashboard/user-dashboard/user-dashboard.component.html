@@ -1,0 +1,92 @@
+ <div class="dashboard">
+      <header class="dashboard-header">
+        <h1>My Dashboard</h1>
+        <p>Track and manage your assigned tasks.</p>
+      </header>
+      
+      <div class="dashboard-stats">
+        <div class="stat-card">
+          <div class="stat-value">{{ getTaskCount() }}</div>
+          <div class="stat-label">My Tasks</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-value">{{ getTasksByStatus(TaskStatus.TODO).length }}</div>
+          <div class="stat-label">To Do</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-value">{{ getTasksByStatus(TaskStatus.IN_PROGRESS).length }}</div>
+          <div class="stat-label">In Progress</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-value">{{ getTasksByStatus(TaskStatus.DONE).length }}</div>
+          <div class="stat-label">Completed</div>
+        </div>
+      </div>
+      
+      <div class="dashboard-content">
+        <div class="tasks-container">
+          <div class="dashboard-section">
+            <div class="section-header">
+              <h2>My Tasks</h2>
+              <a routerLink="/tasks" class="btn btn-secondary">View All</a>
+            </div>
+            
+            <div class="task-list">
+              <div *ngFor="let task of getMyTasks()" class="task-item" [routerLink]="['/tasks', task.id]">
+                <div class="task-priority" [ngClass]="'priority-' + task.priority"></div>
+                <div class="task-details">
+                  <h3 class="task-title">{{ task.title }}</h3>
+                  <p class="task-description">{{ task.description }}</p>
+                  <p class="task-meta">
+                    <span class="task-due" [ngClass]="{'overdue': isOverdue(task)}">
+                      Due: {{ task.dueDate | date:'mediumDate' }}
+                    </span>
+                  </p>
+                </div>
+                <div class="task-status">
+                  <span class="badge" [ngClass]="getStatusClass(task.status)">
+                    {{ task.statusName }}
+                  </span>
+                </div>
+              </div>
+              
+              <div *ngIf="getMyTasks().length === 0" class="empty-state">
+                <p>You don't have any tasks assigned to you yet.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="dashboard-section">
+            <div class="section-header">
+              <h2>Due Soon</h2>
+            </div>
+            
+            <div class="task-list">
+              <div *ngFor="let task of getDueSoonTasks()" class="task-item" [routerLink]="['/tasks', task.id]">
+                <div class="task-priority" [ngClass]="'priority-' + task.priority"></div>
+                <div class="task-details">
+                  <h3 class="task-title">{{ task.title }}</h3>
+                  <p class="task-meta">
+                    <span class="task-due" [ngClass]="{'overdue': isOverdue(task)}">
+                      Due: {{ task.dueDate | date:'mediumDate' }}
+                    </span>
+                  </p>
+                </div>
+                <div class="task-status">
+                  <span class="badge" [ngClass]="getStatusClass(task.status)">
+                    {{ task.statusName }}
+                  </span>
+                </div>
+              </div>
+              
+              <div *ngIf="getDueSoonTasks().length === 0" class="empty-state">
+                <p>No tasks due soon.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

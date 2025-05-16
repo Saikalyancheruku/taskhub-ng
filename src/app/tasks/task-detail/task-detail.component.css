@@ -1,0 +1,138 @@
+.task-detail {
+      padding: 16px;
+    }
+    
+    .page-header {
+      margin-bottom: 24px;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .header-content h1 {
+      margin: 0;
+    }
+    
+    .task-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    
+    @media (min-width: 1024px) {
+      .task-content {
+        grid-template-columns: 2fr 1fr;
+      }
+    }
+    
+    .task-info {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      padding: 24px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .info-section {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .status-priority {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .description-section label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    
+    .meta-section {
+      display: grid;
+      gap: 12px;
+    }
+    
+    .meta-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .meta-label {
+      font-weight: 500;
+    }
+    
+    .meta-value.overdue {
+      color: var(--error);
+      font-weight: 500;
+    }
+    
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    
+    .comments-section {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      padding: 24px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .comments-section h2 {
+      margin: 0 0 16px 0;
+    }
+    
+    .comment-form {
+      margin-bottom: 24px;
+    }
+    
+    .comment-form textarea {
+      margin-bottom: 12px;
+    }
+    
+    .comments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .comment {
+      padding: 16px;
+      background-color: var(--bg-color);
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    
+    .comment-author {
+      font-weight: 500;
+    }
+    
+    .comment-date {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    
+    .comment-content {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+    
+    .empty-comments {
+      text-align: center;
+      color: var(--text-secondary);
+      padding: 24px;
+    }

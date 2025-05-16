@@ -1,0 +1,28 @@
+<nav class="app-navbar">
+      <div class="navbar-start">
+        <div class="sidebar-toggle" (click)="toggleSidebar.emit()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        
+        <div class="app-brand">
+          <h1>TaskHub</h1>
+        </div>
+      </div>
+      
+      <div class="navbar-end">
+        
+        <div class="user-dropdown" (click)="toggleDropdown()" [class.active]="isDropdownOpen">
+          <div class="user-avatar">
+            <img [src]="'https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001877.png'" alt="User avatar">
+          </div>
+          <span class="user-name">{{ user?.username || 'User' }}</span>
+          
+          <div class="dropdown-menu" *ngIf="isDropdownOpen">
+            <a routerLink="/settings" class="dropdown-item">Settings</a>
+            <a (click)="logout()" class="dropdown-item">Logout</a>
+          </div>
+        </div>
+      </div>
+    </nav>

@@ -1,0 +1,136 @@
+  <div class="create-task">
+      <header class="page-header">
+        <h1>Create New Task</h1>
+      </header>
+
+      <form class="task-form" #taskForm="ngForm" (ngSubmit)="createTask()">
+        <!-- Title -->
+        <div class="form-group">
+          <label for="title" class="form-label">Title</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            [(ngModel)]="taskData.title"
+            class="form-input"
+            placeholder="Enter task title"
+            required
+            #titleModel="ngModel"
+          />
+          <div class="error" *ngIf="titleModel.invalid && (titleModel.touched || taskForm.submitted)">
+            Title is required.
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            [(ngModel)]="taskData.description"
+            class="form-input"
+            rows="4"
+            placeholder="Enter task description"
+            required
+            #descModel="ngModel"
+          ></textarea>
+          <div class="error" *ngIf="descModel.invalid && (descModel.touched || taskForm.submitted)">
+            Description is required.
+          </div>
+        </div>
+
+        <div class="form-row">
+          <!-- Priority -->
+          <div class="form-group">
+            <label for="priority" class="form-label">Priority</label>
+            <select
+              id="priority"
+              name="priority"
+              [(ngModel)]="taskData.priority"
+              class="form-input"
+              required
+              #priorityModel="ngModel"
+            >
+              <option *ngFor="let priority of priorities" [value]="priority.id">
+                {{ priority.name }}
+              </option>
+            </select>
+            <div class="error" *ngIf="priorityModel.invalid && (priorityModel.touched || taskForm.submitted)">
+              Priority is required.
+            </div>
+          </div>
+
+          <!-- Due Date -->
+          <div class="form-group">
+            <label for="dueDate" class="form-label">Due Date</label>
+            <input
+              type="date"
+              id="dueDate"
+              name="dueDate"
+              [(ngModel)]="taskData.dueDate"
+              class="form-input"
+              [min]="minDate"
+              required
+              #dueDateModel="ngModel"
+            />
+            <div class="error" *ngIf="dueDateModel.invalid && (descModel.touched || taskForm.submitted)">
+              Due date is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <!-- Team -->
+          <div class="form-group">
+            <label for="team" class="form-label">Team</label>
+            <select
+              id="team"
+              name="team"
+              [(ngModel)]="selectedTeamId"
+              (ngModelChange)="onTeamChange()"
+              class="form-input"
+              required
+              #teamModel="ngModel"
+            >
+              <option value="">Select a team</option>
+              <option *ngFor="let team of teams" [value]="team.id">
+                {{ team.name }}
+              </option>
+            </select>
+            <div class="error" *ngIf="teamModel.invalid && (teamModel.touched || taskForm.submitted)">
+              Team selection is required.
+            </div>
+          </div>
+
+          <!-- Assignee -->
+          <div class="form-group">
+            <label for="assignee" class="form-label">Assignee</label>
+            <select
+              id="assignee"
+              name="assignee"
+              [(ngModel)]="taskData.assigneeId"
+              class="form-input"
+              required
+              [disabled]="!selectedTeamId"
+              #assigneeModel="ngModel"
+            >
+              <option value="">Select team member</option>
+              <option *ngFor="let member of teamMembers" [value]="member.userId">
+                {{ member.username }}
+              </option>
+            </select>
+            <div class="error" *ngIf="assigneeModel.invalid && (assigneeModel.touched || taskForm.submitted)">
+              Assignee is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!taskForm.form.valid">
+            Create Task
+          </button>
+        </div>
+      </form>
+    </div>

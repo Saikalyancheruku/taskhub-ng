@@ -1,0 +1,109 @@
+ <div class="tasks-page">
+      <header class="page-header">
+        <div class="header-content">
+          <h1>Tasks</h1>
+          <button 
+            *ngIf="canCreateTask" 
+            class="btn btn-primary" 
+            routerLink="/add"
+          >
+            Create Task
+          </button>
+        </div>
+        
+        <div class="filters">
+          <div class="filter-group">
+            <label for="status">Status</label>
+            <select 
+              id="status" 
+              [(ngModel)]="filters.status"
+              (ngModelChange)="applyFilters()"
+              class="form-input"
+            >
+              <option value="">All</option>
+              <option *ngFor="let status of statuses" [value]="status.id">
+                {{ status.name }}
+              </option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <label for="priority">Priority</label>
+            <select 
+              id="priority" 
+              [(ngModel)]="filters.priority"
+              (ngModelChange)="applyFilters()"
+              class="form-input"
+            >
+              <option value="">All</option>
+              <option *ngFor="let priority of priorities" [value]="priority.id">
+                {{ priority.name }}
+              </option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <label for="dueDate">Due Date</label>
+            <select 
+              id="dueDate" 
+              [(ngModel)]="filters.dueDate"
+              (ngModelChange)="applyFilters()"
+              class="form-input"
+            >
+              <option value="">All</option>
+              <option value="overdue">Overdue</option>
+              <option value="today">Due Today</option>
+              <option value="week">Due This Week</option>
+              <option value="month">Due This Month</option>
+            </select>
+          </div>
+        </div>
+      </header>
+      
+      <div class="task-grid">
+        <div 
+          *ngFor="let task of filteredTasks" 
+          class="task-card" 
+          [ngClass]="'priority-' + task.priorityName"
+          [routerLink]="['/tasks', task.id]"
+        >
+          <div class="task-header">
+            <h3 class="task-title">{{ task.title }}</h3>
+            <span class="badge" [ngClass]="'badge-' + task.status">
+              {{ task.statusName }}
+            </span>
+          </div>
+          
+          <p class="task-description">{{ task.description }}</p>
+          
+          <div class="task-meta">
+            <div class="meta-item">
+              <span class="meta-label">Assignee:</span>
+              <span class="meta-value">
+                {{ task.assigneeName }}
+              </span>
+            </div>
+            
+            <div class="meta-item">
+              <span class="meta-label">Due:</span>
+              <span 
+                class="meta-value" 
+                [class.overdue]="isOverdue(task)"
+              >
+                {{ task.dueDate | date:'mediumDate' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="filteredTasks.length === 0" class="empty-state">
+        <p>No tasks found matching your filters.</p>
+        <button 
+          class="btn btn-secondary" 
+          (click)="clearFilters()"
+        >
+          Clear Filters
+        </button>
+      </div>
+    </div>

@@ -1,0 +1,81 @@
+ <div class="dashboard">
+      <header class="dashboard-header">
+        <h1>Manager Dashboard</h1>
+        <p>Manage your team and tasks efficiently from this dashboard.</p>
+      </header>
+      
+      <div class="dashboard-stats">
+        <div class="stat-card">
+          <div class="stat-value">{{ myTeams.length }}</div>
+          <div class="stat-label">My Teams</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-value">{{ getTeamMembersCount() }}</div>
+          <div class="stat-label">Team Members</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-value">{{ tasks.length }}</div>
+          <div class="stat-label">Total Tasks</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-value">{{ getPendingTasks() }}</div>
+          <div class="stat-label">Pending Tasks</div>
+        </div>
+      </div>
+      
+      <div class="dashboard-content">
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2>Team Tasks</h2>
+            <a routerLink="/tasks" class="btn btn-secondary">View All</a>
+          </div>
+          
+          <div class="task-list">
+            <div *ngFor="let task of getRecentTasks()" class="task-item">
+              <div class="task-priority" [ngClass]="'priority-' + task.priority"></div>
+              <div class="task-details">
+                <h3 class="task-title">{{ task.title }}</h3>
+                <p class="task-meta">
+                  <span class="task-assignee">Assigned to: {{ task.assigneeName }}</span>
+                  <span class="task-due">Due: {{ task.dueDate | date:'mediumDate' }}</span>
+                </p>
+              </div>
+              <div class="task-status">
+                <span class="badge" [ngClass]="getStatusClass(task.status)">
+                  {{ task.statusName }}
+                </span>
+              </div>
+            </div>
+            
+            <div *ngIf="getRecentTasks().length === 0" class="empty-state">
+              <p>No tasks found. Create a new task to get started.</p>
+              <a routerLink="/tasks/create" class="btn btn-primary">Create Task</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2>My Teams</h2>
+            <a routerLink="/teams" class="btn btn-secondary">Manage Teams</a>
+          </div>
+          
+          <div class="team-list">
+            <div *ngFor="let team of myTeams" class="team-item">
+              <div class="team-details">
+                <h3 class="team-name">{{ team.name }}</h3>
+                <p class="team-description" *ngIf="team.description">{{ team.description }}</p>
+                <p class="team-meta">{{ team.memberCount }} members</p>
+              </div>
+            </div>
+            
+            <div *ngIf="myTeams.length === 0" class="empty-state">
+              <p>You don't have any teams yet.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
